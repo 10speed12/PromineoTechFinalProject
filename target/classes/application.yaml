@@ -1,0 +1,11 @@
+spring:
+   datasource:
+      username: final_project
+      password: final_project
+      url: jdbc:mysql://localhost:3306/final_project
+      
+   jpa:
+      hibernate:
+         ddl-auto: update
+      show-sql: true
+      defer-datasource-initialization: true
