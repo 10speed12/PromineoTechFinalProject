@@ -74,6 +74,7 @@ public class AppleStoreService {
 
 	@Transactional(readOnly = false)
 	public AppleStoreEmployee saveEmployee(Long appleStoreId, AppleStoreEmployee employeeData) {
+		// Retrieve appleStore associated with ID of appleStoreId value:
 		AppleStore appleStore = findAppleStoreById(appleStoreId);
 		Long employeeId = employeeData.getEmployeeId();
 		Employee employee = findOrCreateEmployee(appleStoreId, employeeId);
@@ -112,9 +113,10 @@ public class AppleStoreService {
 		// Otherwise, return retrieved employee:
 		return employee;
 	}
-
+	// Function for creating a new AppleStoreCustomer object and linking it to an existing AppleStore record:
 	@Transactional(readOnly = false)
 	public AppleStoreCustomer saveCustomer(Long appleStoreId, AppleStoreCustomer appleStoreCustomer) {
+		// Retrieve appleStore associated with ID of appleStoreId value:
 		AppleStore appleStore = findAppleStoreById(appleStoreId);
 		Long customerId = appleStoreCustomer.getCustomerId();
 		Customer customer = findOrCreateCustomer(appleStoreId, customerId);
@@ -190,8 +192,9 @@ public class AppleStoreService {
 	
 	@Transactional
 	public AppleStoreData getAppleStoreById(Long appleStoreId) {
+		// Retrieve appleStore associated with ID of appleStoreId value:
 		AppleStore appleStore = findAppleStoreById(appleStoreId);
-		// Convert retrieved PetStore into a new PetStoreData object and return it:
+		// Convert retrieved AppleStore into a new AppleStoreData object and return it:
 		return new AppleStoreData(appleStore);
 	}
 	
@@ -200,16 +203,17 @@ public class AppleStoreService {
 		Customer customer = findCustomerById(customerId);
 		return new AppleStoreCustomer(customer);
 	}
-	
+	// Delete a specified AppleStore record and all items linked to it:
 	@Transactional(readOnly = false)
 	public void deleteAppleStoreById(Long appleStoreId) {
 		AppleStore appleStore = findAppleStoreById(appleStoreId);
 		appleStoreDao.delete(appleStore);
 	}
 	
-	
+	// Create a new AppleStoreInventory record and link it to an existing AppleStore record:
 	@Transactional(readOnly = false)
 	public AppleStoreInventory saveInventory(Long appleStoreId, AppleStoreInventory inventoryData) {
+		// Retrieve appleStore associated with ID of appleStoreId value:
 		AppleStore appleStore = findAppleStoreById(appleStoreId);
 		Long inventoryId = inventoryData.getInventoryId();
 		Inventory inventory = findOrCreateInventory(appleStoreId, inventoryId);
@@ -220,8 +224,7 @@ public class AppleStoreService {
 		return new AppleStoreInventory(dbInventory);
 	}
 
-
-	
+	// Copy over the information in an AppleStoreInventory object to an Inventory object:
 	private void copyInventoryFields(Inventory inventory, AppleStoreInventory inventoryData) {
 		inventory.setProduct_name(inventoryData.getProduct_name());
 		inventory.setProduct_quantity(inventoryData.getProduct_quantity());
@@ -262,7 +265,7 @@ public class AppleStoreService {
 	private void copyOrderFields(Orders order, AppleStoreOrder orderData) {
 		order.setProduct_name(orderData.getProduct_name());
 		order.setPurchase_quantity(orderData.getPurchase_quantity());
-		//order.setOrderDate(orderData.getOrderDate());
+		order.setOrderDate(orderData.getOrderDate());
 		
 	}
 

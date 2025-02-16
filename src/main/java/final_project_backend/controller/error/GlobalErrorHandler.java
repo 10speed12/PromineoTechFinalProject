@@ -32,6 +32,7 @@ public class GlobalErrorHandler {
 		map.put("message",ex.toString());
 		return map;
 	}
+	
 
 	/*
 	@ExceptionHandler(Exception.class)
